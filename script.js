@@ -30,6 +30,8 @@ function preload() {
   console.log('received data is :' + data.packet);
   userSelectedPacket = data.packet;
 }
+
+var initBowl = true;
 function setup() {
   createCanvas(screen.width - 20, screen.height - 20 );
   //Create bowl sprite
@@ -37,13 +39,14 @@ function setup() {
   bowl.scale = 0.65;
   bowl.addImage(bowlImage);
 
+  bowl.position.x = screen.width/2;
+
   packetList = [cherry,orange,banana];
   createRandom();
 
 }
 
 function mouseDragged(event) {
-  //console.log(event.touches[0].clientX);
   bowl.position.x=event.touches[0].clientX;
 }
 setInterval(function(){ 
@@ -97,7 +100,7 @@ function draw() {
 
   /* Moving the bowl using mouseX
   bowl.position.x=mouseX; */
-  bowl.position.x=mouseX;
+  //bowl.position.x=mouseX;
 
   if(greenPacket!=null){
 

@@ -203,7 +203,8 @@ form{
   background-size: contain;
   display: none;
   z-index: -1; 
-  margin: -20px 0px 0px 0px;
+  margin: -20px 0px 0px 0px; 
+  transform: scale(0.9);
 }
 
 
@@ -381,27 +382,25 @@ var checkOrientation = function(){
 
           closeFullscreen();
 
-window.scrollTo(0,0);
-isLandscape = false;
+          window.scrollTo(0,0);
+          isLandscape = false;
 
-                     document.getElementById("bg").style.display = "none";
-                     document.getElementById("portrait").style.display = "block";
-                     document.getElementById("iframeDisplay").style.display = "none";
-                     document.getElementById("bg_start").style.display = "none";
+          document.getElementById("bg").style.display = "none";
+          document.getElementById("portrait").style.display = "block";
+          document.getElementById("iframeDisplay").style.display = "none";
+          document.getElementById("bg_start").style.display = "none";
 
 
         }else{
-                openFullscreen();
-                window.scrollTo(0,1);
-                    isLandscape = true;
-                    document.getElementById("bg_start").style.display = "block";
+                
+          openFullscreen();
+          window.scrollTo(0,1);
+          isLandscape = true;
+          document.getElementById("bg_start").style.display = "block";
 
-                    document.getElementById("bg").style.display = "none";
-                    document.getElementById("portrait").style.display = "none";
-                    document.getElementById("iframeDisplay").style.display = "none";
-
-                    
-
+          document.getElementById("bg").style.display = "none";
+          document.getElementById("portrait").style.display = "none";
+          document.getElementById("iframeDisplay").style.display = "none";
 
         }
         
@@ -522,6 +521,27 @@ window.addEventListener("message", receiveMessage, false);
 function playAgain(){
   document.getElementById("gameOver").style.display = "none";
   displayIframe();
+}
+
+
+window.tdiff = []; fred = function(a,b){return a-b;};
+window.document.onload = function(e){ 
+  assumePortraitAndActivePanels();
+}
+window.onload = function(e){ 
+  assumePortraitAndActivePanels();
+}
+
+function assumePortraitAndActivePanels(){
+  closeFullscreen();
+
+window.scrollTo(0,0);
+isLandscape = false;
+
+document.getElementById("bg").style.display = "none";
+document.getElementById("portrait").style.display = "block";
+document.getElementById("iframeDisplay").style.display = "none";
+document.getElementById("bg_start").style.display = "none";
 }
 
 </script>
