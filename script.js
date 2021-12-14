@@ -14,7 +14,7 @@ var isDrawing = false;
 var userSelectedPacket = "";
 //preload all the sprites
 function preload() {
-  backgroundImage = loadImage("bg.jpg");
+  backgroundImage = loadImage("bg_1.jpg");
 
   bowlImage = loadImage("robber.png");
 

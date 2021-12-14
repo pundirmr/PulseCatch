@@ -369,6 +369,7 @@ var isLandscape = false;
 
 var previousOrientation = window.orientation;
 var checkOrientation = function(){
+
     if(window.orientation !== previousOrientation){
         previousOrientation = window.orientation;
         // orientation changed, do your magic here
@@ -405,6 +406,8 @@ var checkOrientation = function(){
 
 window.addEventListener("resize", checkOrientation, false);
 window.addEventListener("orientationchange", checkOrientation, false);
+
+
 
 // (optional) Android doesn't always fire orientationChange on 180 degree turns
 setInterval(checkOrientation, 2000);
