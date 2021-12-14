@@ -44,6 +44,7 @@ function setup() {
 
   packetList = [cherry,orange,banana];
   createRandom();
+  document.getElementById("gameOver").style.display = "none";
 
 }
 
