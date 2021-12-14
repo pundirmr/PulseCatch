@@ -14,12 +14,13 @@ var isDrawing = false;
 var userSelectedPacket = "";
 //preload all the sprites
 function preload() {
+  backgroundImage = loadImage("bg - Copy.jpg");
+
   bowlImage = loadImage("robber.png");
 
   cherry = loadImage("bomb.png");
   orange = loadImage("coin.png");
   banana = loadImage("coin1.png");
-  backgroundImage = loadImage("bg.jpg");
 
   var params = location.href.split('?')[1].split('&');
   data = {};
