@@ -17,7 +17,7 @@
         <div class="button1" type="button" onclick="enableGreenPacket()"></div>
         <div class="button2" type="button" onclick="enableYellowPacket()"></div>
         <div class="button3" type="button" onclick="updateSound()"></div>
-        <div class="playButton" type="button"  onclick="displayIframe()"></div>
+        <div class="playButton" type="button"  onclick="window.location.href='game.html'"></div>
     </div>
 </div>
 <div id="bg_start" onclick="onFullScreenAndStart()" class="bg_start"></div>
@@ -39,7 +39,7 @@
 <div id="gameOver" class="gameOver">
 
   <div id="gameOverText" class="gameOverText">Game Over</div>
-  <div class="playAgain" type="button" onclick="playAgain()" ></div>
+  <div class="playAgain" type="button" onclick="window.location.href='game.html'" ></div>
 
 </div>
 <div id="portrait" class="portrait"></div>
@@ -475,6 +475,7 @@ var selectedPacket = "green";
     }
 
     function displayIframe() {
+      return;
         isGameRunning = true;
 
       var greenPacket =         `
