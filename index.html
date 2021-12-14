@@ -488,13 +488,14 @@ var selectedPacket = "green";
     Your browser doesn't support iframes
 </iframe>
         `
+        document.getElementById("iframeDisplay").style.display = "block";
+
         if(selectedPacket == "green"){
           document.getElementById("iframeDisplay").innerHTML = greenPacket;
         }else{
           document.getElementById("iframeDisplay").innerHTML = yellowPacket;
         }
 
-     document.getElementById("iframeDisplay").style.display = "block";
      //openFullscreen();
     }
 
