@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="preload" as="image" href="SelectionGreen.png">
+  <link rel="preload" as="image" href="SelectionYellow.png">
+  <link rel="preload" as="image" href="ChooseProduct.jpg">
+  <link rel="preload" as="image" href="ChooseProduct_1.jpg">
+
+
+	<title>Pulse</title>
+</head>
+
+<body>
+  <div id="bg" class="bg">
+    <div id="yellowPacket" class="selectionYellow"></div>
+    <div id="greenPacket" class="selectionGreen"></div>
+    <div class="container">
+        <div class="button1" type="button" onclick="enableGreenPacket()"></div>
+        <div class="button2" type="button" onclick="enableYellowPacket()"></div>
+        <div class="button3" type="button" onclick="updateSound()"></div>
+        <div class="playButton" type="button"  onclick="displayIframe()"></div>
+    </div>
+</div>
+<div id="bg_start" onclick="onFullScreenAndStart()" class="bg_start"></div>
+
+<div id="register"  class="register">
+
+  <form action="/action_page.php">
+    <p class="small">
+    <input id="regName" type="text" class="form-style" id="fname" name="fname" placeholder="NAME">
+    <input id="regAge" type="number" class="form-style" id="fname" name="fname" placeholder="AGE">
+    <input id="regEmail" type="email" class="form-style" id="fname" name="fname" placeholder="E-MAIL">
+    <input id="regNumber" type="number" class="form-style" id="fname" name="fname" placeholder="MOBILE NUMBER">
+    <input id="regCity" type="text" class="form-style" id="fname" name="fname" placeholder="CITY"></p>
+  </form>
+  <div class="registerNow" type="button" onclick="doRegister()" ></div>
+</div>
+
+
+<div id="gameOver" class="gameOver">
+
+  <div id="gameOverText" class="gameOverText">Game Over</div>
+  <div class="playAgain" type="button" onclick="playAgain()" ></div>
+
+</div>
+<div id="portrait" class="portrait"></div>
+
+<div id="iframeDisplay" class="iFrameStyle"></div>  
+
+</body>
+
+
+<style>
+
+body, html {
+  height: 110%;
+  margin: 0;
+}
+
+body{
+  background-image: url("OnlyBg.png");
+}
+p.small {
+  line-height: 2.5;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(Adventure.ttf);
+}
+  
+
+input {
+  width: 202%;
+  height: 102%;
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 0%;
+}
+
+form{
+  /* margin-top: 16.45%;
+    margin-left: 25%; */
+    display: inline-grid;
+    z-index: 20;    margin: 12% 0% 0% 25%;
+}
+
+.form-style {
+  padding: 13px 20px;
+    height: 5px;
+    width: 58%;
+    font-family: myFirstFont;
+    font-weight: 500;
+    border-radius: 0px;
+    font-size: 22px;
+    text-shadow: -2px 2px black;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    outline: none;
+    color: #e7e7e7;
+    background-color: #343434;
+    border: none;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+    box-shadow: 0 4px 8px 0 rgb(21 21 21 / 20%);
+}
+.form-style:focus,
+.form-style:active {
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
+
+.portrait {
+  /* The image used */
+  background-image: url("OnlyBg.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  z-index: 50;
+}
+
+.bg_start {
+  /* The image used */
+  background-image: url("Intro.jpg");
+
+  /* Full height */
+  height: 90%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  z-index: -1; margin: -10px 0px 0px 0px;
+  transform: scale(0.9);
+}
+
+
+.bg {
+  /* The image used */
+  background-image: url("ChooseProduct.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+  z-index: -1; 
+  margin: -20px 0px 0px 0px;
+}
+
+.gameOverText{
+  font-family: myFirstFont;
+    display: inline-grid;
+    z-index: 20;
+    margin: 42% 0% 0% 10%;
+    font-size: 37px;
+    text-shadow: -2px 2px black;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    outline: none;
+    color: #e7e7e7;
+    
+}
+
+.register {
+  /* The image used */
+  background-image: url("Registration.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+  z-index: -1; 
+  margin: -20px 0px 0px 0px;
+}
+
+.gameOver {
+  /* The image used */
+  background-image: url("GameOver.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+  z-index: -1; 
+  margin: -20px 0px 0px 0px;
+}
+
+
+
+.bg_soundOff {
+  /* The image used */
+  background-image: url("ChooseProduct_1.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: none;
+  z-index: -1; 
+  margin: -20px 0px 0px 0px;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    position: absolute;
+    z-index: 2; margin: 78px 0px 0px 0px;
+}
+
+.selectionGreen {
+    background-image: url(SelectionGreen.png);
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    position: absolute;
+    z-index: 2; margin: 45px 0px 0px 0px;
+}
+
+.selectionYellow {
+    background-image: url(SelectionYellow.png);
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: none;
+    position: absolute;
+    z-index: 2; margin: 45px 0px 0px 0px;
+}
+
+.button1{
+  height: 62%;
+    width: 49%;
+    position: relative;
+    top: -14%;
+    background-color: transparent;
+}
+
+.button2{
+  height: 62%;
+    width: 49%;
+    position: relative;
+    top: -76%;
+    left: 50%;
+    background-color: transparent;
+}
+
+.button3{
+  height: 10%;
+    width: 100%;
+    position: relative;
+    top: -70%;
+    background-color: transparent;
+}
+
+
+.playButton{
+  height: 18%;
+    width: 100%;
+    position: relative;
+    top: -66%;
+    background-color: transparent;
+}
+
+.registerNow{
+    height: 30%;
+    width: 100%;
+    position: relative;
+    top: 0%;
+    background-color: transparent;
+}
+
+.playAgain{
+  height: 30%;
+    width: 100%;
+    position: relative;
+    top: 0%;
+    background-color: transparent;
+
+}
+
+.portraitInfoButton{
+    height: 20%;
+    width: 80%;
+    margin: -50px -50px;
+    position: relative;
+    top: 40%;
+    left: 25%;
+    border: 1px transparent;
+    background-color: #6e8512;
+    cursor: pointer;
+}
+
+.iFrameStyle{
+display: block;
+}
+</style>
+
+<script>
+var elem = document.documentElement;
+function openFullscreen() {
+    if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+    }
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (elem.exitFullscreen) {
+    elem.exitFullscreen();
+  } else if (elem.webkitExitFullscreen) { /* Safari */
+    elem.webkitExitFullscreen();
+  } else if (elem.msExitFullscreen) { /* IE11 */
+    elem.msExitFullscreen();
+  }
+}
+
+function onShare(){
+    const title = 'Pulse';
+    const url = 'https://pundirmr.github.io/pulseScore/';
+    const text = "My high score on Pulse game";
+    if (navigator.share) {
+      navigator
+        .share({ title: `${title}`, url: `${url}`,text: `${text}`})
+        .then(() => {
+          console.log('Thanks for sharing!');
+        })
+        .catch(console.error);
+    } else {
+      window.location.replace(
+        `https://pundirmr.github.io/pulseScore/`
+      );
+    }
+}
+
+var isLandscape = false;
+
+var previousOrientation = window.orientation;
+var checkOrientation = function(){
+    if(window.orientation !== previousOrientation){
+        previousOrientation = window.orientation;
+        // orientation changed, do your magic here
+        console.log(window.orientation);
+
+        if(window.orientation == "0"){
+
+          closeFullscreen();
+
+window.scrollTo(0,0);
+isLandscape = false;
+
+                     document.getElementById("bg").style.display = "none";
+                     document.getElementById("portrait").style.display = "block";
+                     document.getElementById("iframeDisplay").style.display = "none";
+                     document.getElementById("bg_start").style.display = "none";
+
+
+        }else{
+                openFullscreen();
+                window.scrollTo(0,1);
+                    isLandscape = true;
+                    document.getElementById("bg_start").style.display = "block";
+
+                    document.getElementById("bg").style.display = "none";
+                    document.getElementById("portrait").style.display = "none";
+                    document.getElementById("iframeDisplay").style.display = "none";
+
+                    
+
+
+        }
+        
+    }
+};
+
+window.addEventListener("resize", checkOrientation, false);
+window.addEventListener("orientationchange", checkOrientation, false);
+
+// (optional) Android doesn't always fire orientationChange on 180 degree turns
+setInterval(checkOrientation, 2000);
+
+window.onscroll = function(){
+    if(isLandscape){
+        window.scrollTo(0,1);
+    }
+};
+
+var selectedPacket = "green";
+    var sound = true;
+    
+    function enableGreenPacket() {
+      document.getElementById("yellowPacket").style.display = "none";
+      document.getElementById("greenPacket").style.display = "block";
+      selectedPacket = "green";
+      console.log(selectedPacket);
+    }
+    function enableYellowPacket() {
+      document.getElementById("yellowPacket").style.display = "block";
+      document.getElementById("greenPacket").style.display = "none";
+      selectedPacket = "yellow";
+      console.log(selectedPacket);
+    }
+    function updateSound() {
+      //bg_soundOff
+        sound = !sound;
+        if(sound){
+            document.getElementById("bg").className  = "bg";
+        }else{
+            document.getElementById("bg").className = "bg_soundOff";
+        }
+        console.log("sound:" + sound);
+    }
+
+    function onFullScreenAndStart(){
+      openFullscreen();
+      document.getElementById("bg_start").style.display = "none";
+      document.getElementById("portrait").style.display = "none";
+      document.getElementById("bg").style.display = "none";
+      document.getElementById("register").style.display = "block";
+      isLandscape = true;
+    }
+
+    function doRegister(){
+      console.log('register');
+      openFullscreen();
+      console.log(document.getElementById("regName").value);
+      console.log(document.getElementById("regAge").value);
+      console.log(document.getElementById("regEmail").value);
+      console.log(document.getElementById("regNumber").value);
+      console.log(document.getElementById("regCity").value);
+
+      document.getElementById("regName").value = "";
+      document.getElementById("regAge").value = "";
+      document.getElementById("regEmail").value = "";
+      document.getElementById("regNumber").value = "";
+      document.getElementById("regCity").value = "";
+
+      document.getElementById("bg_start").style.display = "none";
+      document.getElementById("portrait").style.display = "none";
+      document.getElementById("bg").style.display = "block";
+      document.getElementById("register").style.display = "none";
+    }
+
+    function displayIframe() {
+        isGameRunning = true;
+        document.getElementById("bg_start").style.display = "none";
+      document.getElementById("portrait").style.display = "none";
+      document.getElementById("bg").style.display = "none";
+      document.getElementById("register").style.display = "none";
+
+
+      var greenPacket =         `
+        <iframe src="game.html?packet=green" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>
+        `
+        var yellowPacket =         `
+        <iframe src="game.html?packet=yellow" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>
+        `
+        if(selectedPacket == "green"){
+          document.getElementById("iframeDisplay").innerHTML = greenPacket;
+        }else{
+          document.getElementById("iframeDisplay").innerHTML = yellowPacket;
+        }
+
+     document.getElementById("iframeDisplay").style.display = "block";
+     openFullscreen();
+    }
+
+    function receiveMessage(event){
+    if (event.data=="removetheiframe"){
+        var element = document.getElementById('iframeDisplay');
+        element.innerHTML = "";//.parentNode.removeChild(element);
+        document.getElementById("gameOver").style.display = "block";
+    }
+    if(event.data.includes("score")){
+      var score = event.data.split(":");
+
+      document.getElementById("gameOverText").innerHTML = "GAME OVER : " + score[1];
+      
+    }
+}
+window.addEventListener("message", receiveMessage, false);
+
+function playAgain(){
+  document.getElementById("gameOver").style.display = "none";
+  displayIframe();
+}
+
+</script>
+</html>

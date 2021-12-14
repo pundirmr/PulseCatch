@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from catch-the-fruit--jagrati020.repl.co/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 30 Nov 2021 20:40:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="p5.js"></script>
+    <script src="p5.sound.js"></script>
+<script src="p5.play.js"></script>
+    
+
+  <script>
+
+
+var elem = document.documentElement;
+function openFullscreen() {
+    if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+    }
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (elem.exitFullscreen) {
+    elem.exitFullscreen();
+  } else if (elem.webkitExitFullscreen) { /* Safari */
+    elem.webkitExitFullscreen();
+  } else if (elem.msExitFullscreen) { /* IE11 */
+    elem.msExitFullscreen();
+  }
+}
+
+var isLandscape = false;
+
+var previousOrientation = window.orientation;
+var checkOrientation = function(){
+    if(window.orientation !== previousOrientation){
+        previousOrientation = window.orientation;
+        // orientation changed, do your magic here
+        console.log(window.orientation);
+
+        if(window.orientation == "0"){
+                     document.getElementById("bg").style.display = "none";
+                     document.getElementById("portrait").style.display = "block";
+
+                    closeFullscreen();
+
+                    window.scrollTo(0,0);
+                    isLandscape = false;
+        }else{
+                    document.getElementById("bg").style.display = "block";
+                    document.getElementById("portrait").style.display = "none";
+
+                    
+                    openFullscreen();
+
+                    window.scrollTo(0,1);
+                    isLandscape = true;
+        }
+        
+    }
+};
+
+window.addEventListener("resize", checkOrientation, false);
+window.addEventListener("orientationchange", checkOrientation, false);
+
+// (optional) Android doesn't always fire orientationChange on 180 degree turns
+setInterval(checkOrientation, 2000);
+
+window.onscroll = function(){
+    if(isLandscape){
+        window.scrollTo(0,1);
+    }
+};
+
+
+  </script>
+
+
+  </head>
+  <body>
+    <script src="script.js"></script>
+  </body>
+
+</html>
