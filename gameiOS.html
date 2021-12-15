@@ -40,15 +40,7 @@ frame.on("ready", function() {
 	var stageH = frame.height;
 	var userSelectedPacket = "";
 
-	
-	var params = location.href.split('?')[1].split('&');
-  data = {};
-  for (x in params)
-  {
-  data[params[x].split('=')[0]] = params[x].split('=')[1];
-  }
-  console.log('received data is :' + data.packet);
-  userSelectedPacket = data.packet;
+	userSelectedPacket = document.getElementById("portrait").innerHTML;
 
 	var backing = new Rectangle(stageW, stageH,"#343331").addTo(stage);
 
