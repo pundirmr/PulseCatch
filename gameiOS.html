@@ -31,16 +31,19 @@ var path = "";
 var currentScore = 0;
 
 
-var frame = new Frame(scaling, width, height, color, outerColor, assets, path,currentScore);
+var userSelectedPacket = "";
+
+var u = parent.window.document.getElementById("packetValue");
+userSelectedPacket = u.innerHTML;
+console.log(userSelectedPacket);
+var frame = new Frame(scaling, width, height, color, outerColor, assets, path,currentScore,userSelectedPacket);
 frame.on("ready", function() {
 	zog("ready from ZIM Frame");
 
 	var stage = frame.stage;
 	var stageW = frame.width;
 	var stageH = frame.height;
-	var userSelectedPacket = "";
 
-	userSelectedPacket = document.getElementById("portrait").innerHTML;
 
 	var backing = new Rectangle(stageW, stageH,"#343331").addTo(stage);
 
@@ -124,7 +127,7 @@ frame.on("ready", function() {
 				.clone()
 				.sca(.5)
 				.centerReg()
-				.loc(rand(0, game.width), -30, coins)
+				.loc(rand(0, game.width), -30, coins1)
 				.animate({
 					props:{y:stageH},
 					time:3,
@@ -167,32 +170,41 @@ var score = 0;
       			parent.window.postMessage("removetheiframe", "*");
 			}
 		}, true); // true loops backwards as we are removing children
-		coins.loop(function(coin) {
-			if (robber.hitTestBounds(coin)) {
-				remove(coin);
-				if(userSelectedPacket != "green"){
-					parent.window.postMessage("score:" + score , "*");
-      			parent.window.postMessage("removetheiframe", "*");
-      			}else{
-					score++;
-				}	
-				// get points etc.
-			//currentScore = currentScore + 100;
-			}
-		}, true); // true loops backwards as we are removing children
+
+
 		coins1.loop(function(coin1) {
 			if (robber.hitTestBounds(coin1)) {	
 				remove(coin1);		
-				if(userSelectedPacket != "yellow"){
+				console.log(userSelectedPacket);
+
+				if(userSelectedPacket == "yellow"){
+					score++;
+				}else{
 					parent.window.postMessage("score:" + score , "*");
       			parent.window.postMessage("removetheiframe", "*");
-				}else{
-					score++;
 				}
 			// get points etc.
 			//currentScore = currentScore + 100;
 			}
 		}, true); // true loops backwards as we are removing children
+
+		coins.loop(function(coin) {
+			if (robber.hitTestBounds(coin)) {
+				remove(coin);
+				console.log(userSelectedPacket + "...");
+
+				if(userSelectedPacket == "green"){
+					score++;
+      			}else{
+					parent.window.postMessage("score:" + score , "*");
+      			parent.window.postMessage("removetheiframe", "*");
+
+				}	
+				// get points etc.
+			//currentScore = currentScore + 100;
+			}
+		}, true); // true loops backwards as we are removing children
+		
 	}
 
 	function remove(obj) {
