@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+<title>Pulse</title>
+
+<script src="scripts/cdn/1.3.2/createjs.js"></script>
+<script src="scripts/cdn/cat/00/zim.js"></script>
+
+<script>
+
+
+// SCALING OPTIONS
+// scaling can have values as follows with full being the default
+// "fit"	sets canvas and stage to dimensions and scales to fit inside window size
+// "outside"	sets canvas and stage to dimensions and scales to fit outside window size
+// "full"	sets stage to window size with no scaling
+// "tagID"	add canvas to HTML tag of ID - set to dimensions if provided - no scaling
+
+var scaling = "outside"; // this will resize to fit inside the screen dimensions
+//var width = document.documentElement.clientWidth;
+//var height = document.documentElement.clientHeight;
+var width = document.documentElement.clientWidth;
+var height =  document.documentElement.clientHeight;
+document.documentElement.clientHeight;
+var color = lighter; // or any HTML color such as "violet" or "#333333"
+var outerColor = lighter;
+var assets = ["bomb.png", "coin.png", "robber.png", "coin1.png","bg_1.jpg"];
+var path = "";
+var currentScore = 0;
+
+
+var frame = new Frame(scaling, width, height, color, outerColor, assets, path,currentScore);
+frame.on("ready", function() {
+	zog("ready from ZIM Frame");
+
+	var stage = frame.stage;
+	var stageW = frame.width;
+	var stageH = frame.height;
+	var userSelectedPacket = "";
+
+	
+	var params = location.href.split('?')[1].split('&');
+  data = {};
+  for (x in params)
+  {
+  data[params[x].split('=')[0]] = params[x].split('=')[1];
+  }
+  console.log('received data is :' + data.packet);
+  userSelectedPacket = data.packet;
+
+	var backing = new Rectangle(stageW, stageH,"#343331").addTo(stage);
+
+
+	var field = frame.asset("bg_1.jpg").scaleTo(stage, null, 100).center().mov(0,0);
+
+	// 2. create a container for the game (or just use the stage)
+	var game = new Container(backing.width, backing.height)
+		.loc(backing)
+		.setMask(backing);
+
+	// 3. create a person to dodge and catch items and position at the bottom
+	// var robber = asset("robber.png")
+	// 	.centerReg()
+	// 	.pos(0,0,CENTER,BOTTOM,game);
+
+
+	const points = [
+		[-100,155],[400, 155]
+	];
+	const path = new Squiggle({
+		points:points, 
+	}).sca(2).pos(120,0,CENTER,CENTER);
+	path.visible = false;
+	
+	const robber = asset("robber.png")
+		.centerReg() // so middle is along path
+		.sca(.7)
+		.animate({
+			props:{path:path, orient:false, zoom:[0.5,0.6]},
+			time:6000,
+			ease:"linear",
+			drag:true,
+			loop:true,
+			rewind:true,
+			startPaused:true		
+		});
+
+
+	// 5. optionally start the game when the user moves their mouse or swipes
+	stage.on("stagemousemove", startGame, null, true); // only once
+	function startGame() {
+
+		// 6. create and animate objects to drop
+		dropBombs();
+		dropCoins();
+		dropCoins1();
+		
+		// 7. add a Ticker to run an animation function
+		Ticker.add(test);
+	}
+
+	// 6. create and animate objects to drop
+	// BOMBS
+	var bombs = new Container().addTo(game);
+	function dropBombs() {
+		interval([3.1, 3.1], function() {
+			var bomb = asset("bomb.png")
+				.clone()
+				.sca(.5)
+				.centerReg()
+				.loc(rand(0, game.width), 50, bombs)
+				.animate({
+					props:{y:backing.height-20},
+					time:2,
+					ease:"linear",
+					call:function (target) {
+						remove(target);
+					}
+				});
+		});
+	}
+	
+	
+		// 6. create and animate objects to drop
+	// COINS
+	var coins1 = new Container().addTo(game);
+	function dropCoins1() {
+		interval([3.4, 3.4], function() {
+			var coin1 = asset("coin1.png")
+				.clone()
+				.sca(.5)
+				.centerReg()
+				.loc(rand(0, game.width), -30, coins)
+				.animate({
+					props:{y:stageH},
+					time:3,
+					ease:"linear",
+					call:remove
+				});
+		});
+	}
+
+
+
+	// 6. create and animate objects to drop
+	// COINS
+	var coins = new Container().addTo(game);
+	function dropCoins() {
+		interval([3.8, 3.8], function() {
+			var coin = asset("coin.png")
+				.clone()
+				.sca(.5)
+				.centerReg()
+				.loc(rand(0, game.width), -30, coins)
+				.animate({
+					props:{y:stageH},
+					time:3,
+					ease:"linear",
+					call:remove
+				});
+		});
+	}
+//var score = new Label("Score: " + currentScore,30, null, "#116301")
+	//	.pos(40, 80);
+var score = 0;
+	// 7. add a Ticker to run an animation function
+	function test() {
+		bombs.loop(function(bomb) {
+			if (robber.hitTestBounds(bomb)) {
+				//gameOver
+				remove(bomb);
+				parent.window.postMessage("score:" + score , "*");
+      			parent.window.postMessage("removetheiframe", "*");
+			}
+		}, true); // true loops backwards as we are removing children
+		coins.loop(function(coin) {
+			if (robber.hitTestBounds(coin)) {
+				remove(coin);
+				if(userSelectedPacket != "green"){
+					parent.window.postMessage("score:" + score , "*");
+      			parent.window.postMessage("removetheiframe", "*");
+      			}else{
+					score++;
+				}	
+				// get points etc.
+			//currentScore = currentScore + 100;
+			}
+		}, true); // true loops backwards as we are removing children
+		coins1.loop(function(coin1) {
+			if (robber.hitTestBounds(coin1)) {	
+				remove(coin1);		
+				if(userSelectedPacket != "yellow"){
+					parent.window.postMessage("score:" + score , "*");
+      			parent.window.postMessage("removetheiframe", "*");
+				}else{
+					score++;
+				}
+			// get points etc.
+			//currentScore = currentScore + 100;
+			}
+		}, true); // true loops backwards as we are removing children
+	}
+
+	function remove(obj) {
+		obj.removeFrom();
+		obj = null;
+	}
+
+	stage.update();
+
+}); // end of ready
+
+</script>
+
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+
+<script>
+
+</script>
+</body>
+
+</html>

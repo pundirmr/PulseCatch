@@ -475,18 +475,39 @@ var selectedPacket = "green";
     }
 
     function displayIframe() {
-        isGameRunning = true;
+      isGameRunning = true;
 
-      var greenPacket =         `
+      var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+               navigator.userAgent &&
+               navigator.userAgent.indexOf('CriOS') == -1 &&
+               navigator.userAgent.indexOf('FxiOS') == -1;
+
+      var greenPacket = "";
+      var yellowPacket = "";
+      if(isSafari){
+        greenPacket =         `
+        <iframe src="gameiOS.html?packet=green" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>
+        `
+         yellowPacket =         `
+        <iframe src="gameiOS.html?packet=yellow" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>
+        `
+      }else{
+         greenPacket =         `
         <iframe src="game.html?packet=green" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
     Your browser doesn't support iframes
 </iframe>
         `
-        var yellowPacket =         `
+         yellowPacket =         `
         <iframe src="game.html?packet=yellow" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
     Your browser doesn't support iframes
 </iframe>
         `
+      }
+
         document.getElementById("iframeDisplay").style.display = "block";
 
         if(selectedPacket == "green"){
