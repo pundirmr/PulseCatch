@@ -37,7 +37,7 @@ function setup() {
   createCanvas(screen.width - 20, screen.height - 20 );
   //Create bowl sprite
   bowl = createSprite(200, screen.height - 70, 20, 20);
-  bowl.scale = 0.65;
+  bowl.scale = 0.35;
   bowl.addImage(bowlImage);
 
   bowl.position.x = screen.width/2;
@@ -172,21 +172,21 @@ function createRandom(){
   if(n==0){
     if(lastpacket == 0){createRandom(); return;}
     bombPacket = createSprite(random(10, width-10),30,20,20);
-    bombPacket.scale = 0.65;
+    bombPacket.scale = 0.35;
     bombPacket.addImage(cherry);
     lastpacket = 0;
   }
   if(n==1){
     if(lastpacket == 1){createRandom(); return;}
     greenPacket = createSprite(random(10, width-10),30,20,20);
-    greenPacket.scale = 0.65;
+    greenPacket.scale = 0.35;
     greenPacket.addImage(orange);
     lastpacket = 1;
   }
   if(n==2){
     if(lastpacket == 2){createRandom(); return;}
     yellowPacket = createSprite(random(10, width-10),30,20,20);
-    yellowPacket.scale = 0.65;
+    yellowPacket.scale = 0.35;
     yellowPacket.addImage(banana);
     lastpacket = 2;
   }
