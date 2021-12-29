@@ -6,10 +6,15 @@
   <link rel="preload" as="image" href="SelectionYellow.png">
   <link rel="preload" as="image" href="ChooseProduct.jpg">
   <link rel="preload" as="image" href="ChooseProduct_1.jpg">
+  <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<title>Pulse</title>
 </head>
 
 <body>
+  <audio id="myAudio">
+    <source src="a.mp3" type="audio/mpeg">
+  </audio>
   <div id="bg" class="bg">
     <div id="yellowPacket" class="selectionYellow"></div>
     <div id="greenPacket" class="selectionGreen"></div>
@@ -26,19 +31,25 @@
 
   <form action="/action_page.php">
     <p class="small">
-    <input id="regName" type="text" class="form-style" id="fname" name="fname" placeholder="NAME">
-    <input id="regAge" type="number" class="form-style" id="fname" name="fname" placeholder="AGE">
-    <input id="regEmail" type="email" class="form-style" id="fname" name="fname" placeholder="E-MAIL">
-    <input id="regNumber" type="number" class="form-style" id="fname" name="fname" placeholder="MOBILE NUMBER">
-    <input id="regCity" type="text" class="form-style" id="fname" name="fname" placeholder="CITY"></p>
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "25">
+    <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    type = "number"
+    maxlength = "3">
+    <!-- <input id="regEmail" type="email" class="form-style"   placeholder="E-MAIL"> -->
+    <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    type = "number"
+    maxlength = "10">
+    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "25"></p>
   </form>
   <div class="registerNow" type="button" onclick="doRegister()" ></div>
 </div>
 
 
 <div id="gameOver" class="gameOver">
-
-  <div id="gameOverText" class="gameOverText">Game Over</div>
+  <div class="gameOverDiv">
+    <div id="gameOverText" class="gameOverText">Game Over</div>
+  </div>
+  
   <div class="playAgain" type="button" onclick="playAgain()" ></div>
 
 </div>
@@ -82,7 +93,7 @@ form{
   /* margin-top: 16.45%;
     margin-left: 25%; */
     display: inline-grid;
-    z-index: 20;    margin: 12% 0% 0% 25%;
+    z-index: 20;    margin: 16% 0% 0% 25%;
 }
 
 .form-style {
@@ -160,14 +171,21 @@ form{
 }
 
 .gameOverText{
-  font-family: myFirstFont;
-    display: inline-block;
-    z-index: 20;
-    margin: 33% 0% 0% 12%;
-    font-size: 37px;
+    font-family: myFirstFont;
+    padding-left: 25%;
+    padding-top: 15%;
+    font-size: 40px;
     text-shadow: -2px 2px black;
     outline: none;
     color: #e7e7e7;
+}
+
+.gameOverDiv{
+  background-image: url(rR.png);
+    display: inline-block;
+    width: 40%;
+    height: 20%;
+    margin: 35% 0% 0% 6%;
 }
 
 .register {
@@ -199,8 +217,8 @@ form{
   background-size: contain;
   display: none;
   z-index: -1; 
-  margin: -20px 0px 0px 0px; 
-  transform: scale(0.85);
+  margin: -25px 0px 0px 0px; 
+  transform: scale(0.87);
 }
 
 
@@ -439,8 +457,10 @@ var selectedPacket = "green";
         sound = !sound;
         if(sound){
             document.getElementById("bg").className  = "bg";
+            playAudio();
         }else{
             document.getElementById("bg").className = "bg_soundOff";
+            pauseAudio();
         }
         console.log("sound:" + sound);
     }
@@ -452,27 +472,6 @@ var selectedPacket = "green";
       document.getElementById("bg").style.display = "none";
       document.getElementById("register").style.display = "block";
       isLandscape = true;
-    }
-
-    function doRegister(){
-      console.log('register');
-      openFullscreen();
-      console.log(document.getElementById("regName").value);
-      console.log(document.getElementById("regAge").value);
-      console.log(document.getElementById("regEmail").value);
-      console.log(document.getElementById("regNumber").value);
-      console.log(document.getElementById("regCity").value);
-
-      document.getElementById("regName").value = "";
-      document.getElementById("regAge").value = "";
-      document.getElementById("regEmail").value = "";
-      document.getElementById("regNumber").value = "";
-      document.getElementById("regCity").value = "";
-
-      document.getElementById("bg_start").style.display = "none";
-      document.getElementById("portrait").style.display = "none";
-      document.getElementById("bg").style.display = "block";
-      document.getElementById("register").style.display = "none";
     }
 
     function displayIframe() {
@@ -522,19 +521,36 @@ var selectedPacket = "green";
       document.getElementById("portrait").style.display = "none";
       document.getElementById("bg").style.display = "none";
       document.getElementById("register").style.display = "none";
+
      //openFullscreen();
     }
 
     function receiveMessage(event){
     if (event.data=="removetheiframe"){
         var element = document.getElementById('iframeDisplay');
-        element.innerHTML = "";//.parentNode.removeChild(element);
-        document.getElementById("gameOver").style.display = "block";
+        element.innerHTML = "";//.parentNode.removeChild(element);        
     }
     if(event.data.includes("score")){
       var score = event.data.split(":");
 
-      document.getElementById("gameOverText").innerHTML = "GAME OVER : " + score[1];
+      document.getElementById("gameOverText").innerHTML = "Score : " + score[1];
+      userscore =  score[1];
+      addLeaderBoardData(userscore);
+
+      document.getElementById("gameOver").style.display = "block";
+      pauseAudio();
+    }
+
+    if(event.data.includes("openGame")){
+      document.getElementById("bg_start").style.display = "none";
+      document.getElementById("portrait").style.display = "none";
+      document.getElementById("bg").style.display = "block";
+      document.getElementById("register").style.display = "none";
+
+      playAudio();
+    }
+
+    if(event.data.includes("gameOver")){
       
     }
 }
@@ -543,6 +559,12 @@ window.addEventListener("message", receiveMessage, false);
 function playAgain(){
   document.getElementById("gameOver").style.display = "none";
   displayIframe();
+
+  if(sound){
+            playAudio();
+  }else{
+            pauseAudio();
+  }
 }
 
 
@@ -565,6 +587,84 @@ document.getElementById("portrait").style.display = "block";
 document.getElementById("iframeDisplay").style.display = "none";
 document.getElementById("bg_start").style.display = "none";
 }
+
+function doRegister(){
+      console.log('register');
+      openFullscreen();
+      console.log(document.getElementById("regName").value);
+      console.log(document.getElementById("regAge").value);
+      // console.log(document.getElementById("regEmail").value);
+      console.log(document.getElementById("regNumber").value);
+      console.log(document.getElementById("regCity").value);
+
+      addRegisterData(document.getElementById("regName").value,
+       document.getElementById("regName").value,
+       document.getElementById("regAge").value,
+      //  document.getElementById("regEmail").value,
+      document.getElementById("regCity").value);
+
+      document.getElementById("regName").value = "";
+      document.getElementById("regAge").value = "";
+      // document.getElementById("regEmail").value = "";
+      document.getElementById("regNumber").value = "";
+      document.getElementById("regCity").value = "";
+
+      openLeaderBoardPage();
+    }
+
+    function openLeaderBoardPage(){
+      document.getElementById("bg_start").style.display = "none";
+      document.getElementById("portrait").style.display = "none";
+      document.getElementById("bg").style.display = "none";
+      document.getElementById("register").style.display = "none";
+      
+      document.getElementById("iframeDisplay").style.display = "block";
+var greenPacket = `<iframe src="leaderBoard.html" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+    Your browser doesn't support iframes
+</iframe>`;
+ document.getElementById("iframeDisplay").innerHTML = greenPacket;
+
+
+    }
+
+var username, userage,useremail,usernumber,usercity,userscore;
+// Create our Firebase reference
+var scoreListRef = new Firebase('https://pulse-68b64-default-rtdb.firebaseio.com/');
+
+// function addRegisterData(name,age,email,number,city){
+  function addRegisterData(name,age,number,city){
+
+  username = name;
+  userage = age;
+  // useremail=email;
+  usernumber=number;
+  usercity =city;
+  
+      //var userScoreRef = scoreListRef.child(name);
+
+      // Use setWithPriority to put the name / score in Firebase, and set the priority to be the score.
+      // userScoreRef.setWithPriority({ name:name, age:age, email:email, number:number,city:city, score:0 }, name);
+      //userScoreRef.setWithPriority({ name:name, age:age, number:number,city:city, score:0 }, name);
+
+}
+
+function addLeaderBoardData(_score){
+  if(username=="") {username="user"}
+  var userScoreRef = scoreListRef.child(username);
+
+  // Use setWithPriority to put the name / score in Firebase, and set the priority to be the score.
+  userScoreRef.setWithPriority({ name:username, age:userage, number:usernumber,city:usercity, score:_score}, _score);
+}
+
+var x = document.getElementById("myAudio"); 
+
+function playAudio() { 
+  x.play(); 
+} 
+
+function pauseAudio() { 
+  x.pause(); 
+} 
 
 </script>
 </html>

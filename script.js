@@ -13,10 +13,22 @@ var life=3;
 var isDrawing = false;
 var userSelectedPacket = "";
 //preload all the sprites
+
+var bowlImageg1,bowlImageg2,bowlImageg3;
+var bowlImagey1,bowlImagey2,bowlImagey3;
+
 function preload() {
   backgroundImage = loadImage("bg_1.jpg");
 
   bowlImage = loadImage("robber.png");
+
+  bowlImageg1 = loadImage("robber_g_1.png");
+  bowlImageg2 = loadImage("robber_g_2.png");
+  bowlImageg3 = loadImage("robber_g_3.png");
+
+  bowlImagey1 = loadImage("robber_y_1.png");
+  bowlImagey2 = loadImage("robber_y_2.png");
+  bowlImagey3 = loadImage("robber_y_3.png");
 
   cherry = loadImage("bomb.png");
   orange = loadImage("coin.png");
@@ -50,8 +62,59 @@ function setup() {
 function mouseDragged(event) {
   bowl.position.x=event.touches[0].clientX;
 }
+var totalTime = 60;
+var fallingSpeed = 3.5;
+setInterval(function(){
+  totalTime = totalTime - 1;
+  console.log('time left : ' + totalTime);
+
+  if(totalTime < 50)
+  {
+    fallingSpeed = 5.5;
+  }
+  if(totalTime < 40)
+  {
+    fallingSpeed = 6.5;
+  }
+  if(totalTime < 30)
+  {
+    fallingSpeed = 7.5;
+  }
+  if(totalTime < 20)
+  {
+    fallingSpeed = 8.5;
+  }
+  if(totalTime < 10)
+  {
+    fallingSpeed = 11;
+  }
+
+  if(userSelectedPacket == "green"){
+    if(count==1){
+      bowl.addImage(bowlImageg1);
+    }
+    if(count==2){
+      bowl.addImage(bowlImageg2);
+    }
+    if(count==3){
+      bowl.addImage(bowlImageg3);
+    }
+  }else{
+    if(count==1){
+      bowl.addImage(bowlImagey1);
+    }
+    if(count==2){
+      bowl.addImage(bowlImagey2);
+    }
+    if(count==3){
+      bowl.addImage(bowlImagey3);
+    }
+  }
+
+}, 1000);
+
 setInterval(function(){ 
-  //code goes here that will be run every 5 seconds. 
+  //code goes here that will be run every 2 seconds. 
   if(isDrawing){
     createRandom();
   }
@@ -64,7 +127,7 @@ function draw() {
   //Generate random greenPacket sprite
 
   if(greenPacket!=null){
-    greenPacket.position.y = greenPacket.position.y + 3.5;
+    greenPacket.position.y = greenPacket.position.y + fallingSpeed;
 
     if (greenPacket.position.y > height) 
     {
@@ -72,7 +135,7 @@ function draw() {
     }
   }
   if(yellowPacket!=null){
-    yellowPacket.position.y = yellowPacket.position.y + 3.5;
+    yellowPacket.position.y = yellowPacket.position.y + fallingSpeed;
 
     if (yellowPacket.position.y > height) 
     {
@@ -80,7 +143,7 @@ function draw() {
     }
   }
   if(bombPacket!=null){
-    bombPacket.position.y = bombPacket.position.y + 3.5;
+    bombPacket.position.y = bombPacket.position.y + fallingSpeed;
 
     if(bombPacket.position.y>height)
     {
@@ -146,8 +209,20 @@ function draw() {
   fill("white");
   textSize(15);
   text("Score:" + count, 20,50);
+
+  fill("white");
+  textSize(15);
+  text("Time:" + totalTime, 20,80);
   //text("LIFE:"+life,500,40);
   //Game Over condition
+  if(totalTime <=0)
+  {
+    textSize(20);
+    text("GAME OVER",50,300);
+    noLoop();
+    parent.window.postMessage("score:" + count , "*");
+    parent.window.postMessage("removetheiframe", "*");
+  }
   if(life<=0)
     {
       textSize(20);
@@ -161,8 +236,8 @@ function draw() {
 //Reset and restart the game
 function mousePressed() 
 {
-  count=0;
-  life=3;
+  //count=0;
+  //life=3;
   loop();
 }
 var lastpacket = 0;

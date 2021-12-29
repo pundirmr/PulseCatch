@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Leaderboard</title>
+<script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="bg" class="bg">
+      <div class="listBox">
+        <ul id="list">
+          
+        </ul>
+        <div class="leaderBoardPlayButton" type="button" onclick="playNow()"><span style="
+          font-family: myFirstFont;
+          font-size: 40px;
+          color: #fff;
+          font-family: myFirstFont;
+          margin-left: 20%;
+          z-index: 500;
+          ">Play Now
+        </span>
+      
+      </div>
+      </div>
+    </div>
+
+</body>
+<style>
+    body, html {
+      height: 100%;
+  margin: 0;
+}
+
+body{
+  background-image: url("OnlyBg.png");
+}
+
+
+.bg {
+    background-image: url(Leaderboard.jpg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    z-index: -1;
+    margin: 0px 0px 0px 0px;
+    scroll-behavior: unset;
+}
+
+.leaderBoardPlayButton{
+    height: 20%;
+    width: 70%;
+    position: relative;
+    top: 0;
+    left: 20%;
+    background: linear-gradient(
+180deg, rgba(205,0,0,1) 36%, rgba(112,0,0,1) 100%);
+}
+</style>
+
+<style>
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(Adventure.ttf);
+}
+
+  .listBox{
+    padding: 20px;
+    display: block;
+    width: 55%;
+    height: 62%;
+    position: sticky;
+    top: 15%;
+    left: 17%;
+  }
+  .listBox ul{margin-left: 15px;
+    display: block;
+    height: 70%;
+    overflow-y: scroll;
+  }
+  .listBox ul li{margin-top:10px;display:block;    background: linear-gradient(
+180deg, rgba(205,0,0,1) 36%, rgba(112,0,0,1) 100%);position:relative;height:40px; display: flex; align-items: center; font-size:20px; color: #fff;     margin-left: 7px;}
+  .listBox ul li:after{content:'';position:absolute;top:0;left:-20px;width:0;height:0;border-bottom:40px;border-left:20px solid transparent}
+  .listBox ul li em{    
+    font-size: 62px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(#ffeb3b, #ff9800);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: #ffffff00;
+    position: absolute;
+    top: -13px;
+    left: -36px;
+    z-index: 5;
+  }
+    .listBox ul li span {    
+      padding-left: 40px;
+    font-family: myFirstFont;
+    font-size: 24px;
+    color: #fff;
+    position: absolute;
+    z-index: 1;
+    font-family: myFirstFont;}
+  </style>
+
+<script>
+
+  var count = 0;
+  // Create our Firebase reference
+var scoreListRef = new Firebase('https://pulse-68b64-default-rtdb.firebaseio.com/');
+  // Create a view to only receive callbacks for the last 10 scores
+  var scoreListView = scoreListRef.limitToFirst(10);
+  
+  var map = new Map();
+
+  var mapSort1 ;
+  var alreadyAdded = false;
+  setInterval(function(){ 
+    if(alreadyAdded) return;
+    count = 0;
+    var ul = document.getElementById("list");
+    ul.innerHTML = "";
+    mapSort1.forEach((value, key) => {
+      count = count + 1;
+       console.log(value, key);
+      var string = document.getElementById("list").innerHTML;
+      ul.innerHTML =  string + "<li><em>#" + count + "</em><span>" + key + ", score : " + value + "</span></li>";  
+    })
+    alreadyAdded = true;
+}, 2000);
+
+
+
+  function handleScoreAdded(scoreSnapshot, prevScoreName) {
+
+    // scoreSnapshot.forEach(function(ss) {
+    //    var data = ss.val();
+    //    map.set(scoreSnapshot.val().name, scoreSnapshot.val().score);
+    // });
+    map.set(scoreSnapshot.val().name, scoreSnapshot.val().score);
+     mapSort1 = new Map([...map.entries()].sort((a, b) => b[1] - a[1]));
+    //console.log(mapSort1);
+
+    // count = count + 1;
+
+    // console.log(scoreSnapshot.key());
+    // console.log(scoreSnapshot.val().age);
+    // console.log(scoreSnapshot.val().city);
+    // // console.log(scoreSnapshot.val().email);
+    // console.log(scoreSnapshot.val().name);
+    // console.log(scoreSnapshot.val().number);
+    // console.log(scoreSnapshot.val().score);
+    // console.log("----------------");
+
+    // var string = document.getElementById("list").innerHTML;
+    // var ul = document.getElementById("list");
+
+    // ul.innerHTML = string +   "<li><em>#" + count + "</em><span>" + scoreSnapshot.val().name + ", score : " + scoreSnapshot.val().score + "</span></li>";  
+  }
+
+  // Add a callback to handle when a score changes or moves positions.
+  var changedCallback = function (scoreSnapshot, prevScoreName) {
+    handleScoreAdded(scoreSnapshot, prevScoreName);
+  };
+
+  scoreListView.on('child_changed', changedCallback);
+  scoreListView.on('child_moved', changedCallback);
+
+    // Add a callback to handle when a new score is added.
+  scoreListView.on('child_added', function (newScoreSnapshot, prevScoreName) {
+    handleScoreAdded(newScoreSnapshot, prevScoreName);
+  });
+
+  // Add a callback to handle when a score is removed
+  scoreListView.on('child_removed', function (oldScoreSnapshot) {
+    console.log(oldScoreSnapshot);
+  });
+
+  function playNow(){
+    parent.window.postMessage("openGame", "*");
+    parent.window.postMessage("removetheiframe", "*");
+  }
+
+  // var nscore = 4;
+  // var userScoreRef = scoreListRef.child("m22");
+  //  userScoreRef.setWithPriority({ name:"Some User 1", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore }, nscore);
+
+  //  var nscore1 = 100;
+  // var userScoreRef = scoreListRef.child("m21");
+  //  userScoreRef.setWithPriority({ name:"Some User 2", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore1 }, nscore1);
+
+  //  var nscore2 = 3;
+  // var userScoreRef = scoreListRef.child("m23");
+  //  userScoreRef.setWithPriority({ name:"Some User 3", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore2 }, nscore2);
+
+
+  //  var nscore3 = 2;
+  // var userScoreRef = scoreListRef.child("m24");
+  //  userScoreRef.setWithPriority({ name:"Some User 4", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore3 }, nscore3);
+
+  //  var nscore4 = 120;
+  // var userScoreRef = scoreListRef.child("m25");
+  //  userScoreRef.setWithPriority({ name:"Some User 5", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore4 }, nscore4);
+
+</script>
+</html>
