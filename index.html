@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <meta property="og:url"                content="https://pundirmr.github.io/PulseCatch/" />
+  <meta property="og:type"               content="website" />
+  <meta property="og:title"              content="Pulse. Come play this game with me." />
+  <meta property="og:description"        content="Come play this game with me" />
+  <meta property="og:image"              content="https://i.ibb.co/H71jxDk/Screen-1-min.jpg" />
+
+
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="preload" as="image" href="SelectionGreen.png">
   <link rel="preload" as="image" href="SelectionYellow.png">
@@ -376,8 +383,8 @@ function closeFullscreen() {
 
 function onShare(){
     const title = 'Pulse';
-    const url = 'https://pundirmr.github.io/pulseScore/';
-    const text = "My high score on Pulse game";
+    const url = 'https://pundirmr.github.io/PulseCatch/';
+    const text = "Play Pulse game";
     if (navigator.share) {
       navigator
         .share({ title: `${title}`, url: `${url}`,text: `${text}`})
@@ -387,7 +394,7 @@ function onShare(){
         .catch(console.error);
     } else {
       window.location.replace(
-        `https://pundirmr.github.io/pulseScore/`
+        `https://pundirmr.github.io/PulseCatch/`
       );
     }
 }
