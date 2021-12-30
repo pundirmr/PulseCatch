@@ -31,15 +31,15 @@
 
   <form action="/action_page.php">
     <p class="small">
-    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "25">
-    <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "25" oninput="updatwidth()">
+    <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
     type = "number"
     maxlength = "3">
     <!-- <input id="regEmail" type="email" class="form-style"   placeholder="E-MAIL"> -->
-    <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
     type = "number"
     maxlength = "10">
-    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "25"></p>
+    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "25" oninput="updatewidth()"></p>
   </form>
   <div class="registerNow" type="button" onclick="doRegister()" ></div>
 </div>
@@ -666,6 +666,22 @@ function playAudio() {
 function pauseAudio() { 
   x.pause(); 
 } 
+
+// $(function() {
+//     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+//     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+//     // $("html, body").css({"width":w,"height":h});
+//     console.log("w:" + w);
+//     console.log("h:" + h);
+// });
+
+function updatewidth(){
+  var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    document.getElementById("register").style.width = w;
+    document.getElementById("register").style.height = h;
+
+}
 
 </script>
 </html>
