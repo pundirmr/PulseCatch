@@ -31,7 +31,7 @@
 
   <form action="/action_page.php">
     <p class="small">
-    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "25" oninput="updatewidth()">
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" oninput="updatewidth()">
     <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
     type = "number"
     maxlength = "3">
@@ -39,7 +39,7 @@
     <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
     type = "number"
     maxlength = "10">
-    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "25" oninput="updatewidth()"></p>
+    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" oninput="updatewidth()"></p>
   </form>
   <div class="registerNow" type="button" onclick="doRegister()" ></div>
 </div>
@@ -536,7 +536,7 @@ var selectedPacket = "green";
 
       document.getElementById("gameOverText").innerHTML = "Score : " + score[1];
       userscore =  score[1];
-      addLeaderBoardData(userscore);
+      addLeaderBoardData(parseInt(userscore));
 
       document.getElementById("gameOver").style.display = "block";
       pauseAudio();
@@ -641,11 +641,11 @@ var scoreListRef = new Firebase('https://pulse-68b64-default-rtdb.firebaseio.com
   usernumber=number;
   usercity =city;
   
-      //var userScoreRef = scoreListRef.child(name);
+      var userScoreRef = scoreListRef.child(name);
 
       // Use setWithPriority to put the name / score in Firebase, and set the priority to be the score.
       // userScoreRef.setWithPriority({ name:name, age:age, email:email, number:number,city:city, score:0 }, name);
-      //userScoreRef.setWithPriority({ name:name, age:age, number:number,city:city, score:0 }, name);
+    userScoreRef.setWithPriority({ name:username, age:age, number:number,city:city, score:0 }, username);
 
 }
 

@@ -95,7 +95,7 @@ body{
     -webkit-text-fill-color: #ffffff00;
     position: absolute;
     top: -13px;
-    left: -36px;
+    left: -52px;
     z-index: 5;
   }
     .listBox ul li span {    
@@ -132,7 +132,7 @@ var scoreListRef = new Firebase('https://pulse-68b64-default-rtdb.firebaseio.com
       ul.innerHTML =  string + "<li><em>#" + count + "</em><span>" + key + ", score : " + value + "</span></li>";  
     })
     alreadyAdded = true;
-}, 2000);
+}, 1000);
 
 
 
@@ -186,26 +186,16 @@ var scoreListRef = new Firebase('https://pulse-68b64-default-rtdb.firebaseio.com
     parent.window.postMessage("removetheiframe", "*");
   }
 
-  // var nscore = 4;
-  // var userScoreRef = scoreListRef.child("m22");
-  //  userScoreRef.setWithPriority({ name:"Some User 1", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore }, nscore);
-
-  //  var nscore1 = 100;
-  // var userScoreRef = scoreListRef.child("m21");
-  //  userScoreRef.setWithPriority({ name:"Some User 2", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore1 }, nscore1);
-
-  //  var nscore2 = 3;
-  // var userScoreRef = scoreListRef.child("m23");
-  //  userScoreRef.setWithPriority({ name:"Some User 3", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore2 }, nscore2);
 
 
-  //  var nscore3 = 2;
+
+  //  var nscore3 = 10;
   // var userScoreRef = scoreListRef.child("m24");
-  //  userScoreRef.setWithPriority({ name:"Some User 4", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore3 }, nscore3);
+  //  userScoreRef.setWithPriority({ name:"Gopal", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore3 }, nscore3);
 
-  //  var nscore4 = 120;
+  //  var nscore4 = 14;
   // var userScoreRef = scoreListRef.child("m25");
-  //  userScoreRef.setWithPriority({ name:"Some User 5", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore4 }, nscore4);
+  //  userScoreRef.setWithPriority({ name:"Sakshi", age:"userage", email:"useremail", number:"usernumber",city:"usercity", score:nscore4 }, nscore4);
 
 </script>
 </html>
