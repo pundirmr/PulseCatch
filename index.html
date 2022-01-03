@@ -344,7 +344,7 @@ form{
 }
 
 .registerNow{
-    height: 30%;
+    height: 200%;
     width: 100%;
     position: relative;
     top: 0%;
@@ -719,11 +719,30 @@ function pauseAudio() {
 
 function updatewidth(){
     document.getElementById("regForm").style.margin = '0% 0% 0% 25%';
+    xfocus();
 }
 
 function resetWidth(){
   //document.getElementById("regForm").style.margin = '16% 0% 0% 25%';
 }
+
+function xfocus() {
+    setTimeout(function() {
+      height_old = window.innerHeight;
+      window.addEventListener('resize', xresize);
+    }, 500);
+  }
+  function xresize() {
+    height_new = window.innerHeight;
+    var diff = Math.abs(height_old - height_new);
+    var perc = Math.round((diff / height_old) * 100);
+    if (perc > 50)
+      xblur();
+  }
+  function xblur() {
+    window.removeEventListener('resize', xresize);
+    document.getElementById("regForm").style.margin = '16% 0% 0% 25%';
+  }
 
 </script>
 </html>
