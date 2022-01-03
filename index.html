@@ -35,10 +35,9 @@
 <div id="bg_start" onclick="onFullScreenAndStart()" class="bg_start"></div>
 
 <div id="register"  class="register">
-
-  <form action="/action_page.php">
+  <form id="regForm">
     <p class="small">
-    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" oninput="updatewidth()">
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" oninput="updatewidth()" >
     <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
     type = "number"
     maxlength = "3">
@@ -129,6 +128,34 @@ form{
   outline: none;
   box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
 }
+
+.form-s {
+  padding: 13px 20px;
+    height: 5px;
+    width: 58%;
+    font-family: myFirstFont;
+    font-weight: 500;
+    border-radius: 0px;
+    font-size: 22px;
+    text-shadow: -2px 2px black;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    outline: none;
+    color: #e7e7e7;
+    background-color: #343434;
+    border: none;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+    box-shadow: 0 4px 8px 0 rgb(21 21 21 / 20%);
+}
+.form-s:focus,
+.form-s:active {
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
+
+
 
 .portrait {
   /* The image used */
@@ -328,7 +355,7 @@ form{
   height: 30%;
     width: 100%;
     position: relative;
-    top: 0%;
+    top: -27%;
     background-color: transparent;
 
 }
@@ -336,7 +363,7 @@ form{
     height: 40%;
     width: 100%;
     position: relative;
-    top: -71%;
+    top: -27%;
     background-color: transparent;
 }
 
@@ -691,11 +718,7 @@ function pauseAudio() {
 // });
 
 function updatewidth(){
-  var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    //document.getElementById("register").style.width = w;
-    //document.getElementById("register").style.height = h;
-
+    document.getElementById("regForm").style.margin = "0% 0% 0% 25%;";
 }
 
 </script>

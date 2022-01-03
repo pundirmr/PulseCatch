@@ -6,6 +6,10 @@ var greenPacket;
 var yellowPacket;
 var bombPacket;
 
+var bombPackets = [];
+var yellowPackets = [];
+var greenPackets = [];
+
 var backgroundImage;
 var count =0;
 var life=3;
@@ -49,7 +53,7 @@ function setup() {
   createCanvas(screen.width - 20, screen.height - 20 );
   //Create bowl sprite
   bowl = createSprite(200, screen.height - 70, 20, 20);
-  bowl.scale = 0.35;
+  bowl.scale = 0.5;
   bowl.addImage(bowlImage);
 
   bowl.position.x = screen.width/2;
@@ -62,31 +66,27 @@ function setup() {
 function mouseDragged(event) {
   bowl.position.x=event.touches[0].clientX;
 }
-var totalTime = 60;
-var fallingSpeed = 3.5;
+var totalTime = 30;
+var fallingSpeed = 2.5;
 setInterval(function(){
   totalTime = totalTime - 1;
   console.log('time left : ' + totalTime);
 
-  if(totalTime < 50)
+  if(totalTime < 25)
   {
-    fallingSpeed = 5.5;
-  }
-  if(totalTime < 40)
-  {
-    fallingSpeed = 6.5;
-  }
-  if(totalTime < 30)
-  {
-    fallingSpeed = 7.5;
+    fallingSpeed = 3.0;
   }
   if(totalTime < 20)
   {
-    fallingSpeed = 8.5;
+    fallingSpeed = 3.5;
+  }
+  if(totalTime < 15)
+  {
+    fallingSpeed = 4.5;
   }
   if(totalTime < 10)
   {
-    fallingSpeed = 11;
+    fallingSpeed = 5.5;
   }
 
   if(userSelectedPacket == "green"){
@@ -120,36 +120,60 @@ setInterval(function(){
   }
   isDrawing = false;
 
-}, 2000);
+}, 700);
+
+function removeItemOnce(arr, value) {
+  var index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+    removeSprite(value);
+  }
+  return arr;
+}
+
 function draw() {
   isDrawing = true;
   background(backgroundImage);
   //Generate random greenPacket sprite
 
-  if(greenPacket!=null){
-    greenPacket.position.y = greenPacket.position.y + fallingSpeed;
 
-    if (greenPacket.position.y > height) 
-    {
-      removeSprite( greenPacket );
+  for (var i = 0; i < bombPackets.length; i++) {
+    if(bombPackets[i]!=null){
+      bombPackets[i].position.y = bombPackets[i].position.y + fallingSpeed;
+
+      if (bombPackets[i].position.y > height +1000) 
+      {
+        bombPackets = removeItemOnce(bombPackets,bombPackets[i]);
+        //removeSprite( bombPackets[i] );
+      }
     }
   }
-  if(yellowPacket!=null){
-    yellowPacket.position.y = yellowPacket.position.y + fallingSpeed;
 
-    if (yellowPacket.position.y > height) 
-    {
-      removeSprite( yellowPacket );
+  for (var i = 0; i < greenPackets.length; i++) {
+    if(greenPackets[i]!=null){
+      greenPackets[i].position.y = greenPackets[i].position.y + fallingSpeed;
+
+      if (greenPackets[i].position.y > height +1000) 
+      {
+        greenPackets = removeItemOnce(greenPackets,greenPackets[i]);
+        //removeSprite( greenPackets[i] );
+      }
     }
   }
-  if(bombPacket!=null){
-    bombPacket.position.y = bombPacket.position.y + fallingSpeed;
 
-    if(bombPacket.position.y>height)
-    {
-      removeSprite( bombPacket );
+  for (var i = 0; i < yellowPackets.length; i++) {
+    if(yellowPackets[i]!=null){
+      yellowPackets[i].position.y = yellowPackets[i].position.y + fallingSpeed;
+
+      if (yellowPackets[i].position.y > height +1000) 
+      {
+        yellowPackets = removeItemOnce(yellowPackets,yellowPackets[i]);
+        //removeSprite( yellowPackets[i]);
+      }
     }
   }
+
+
   
   //Move the bowl to the right and left
   if (keyDown(RIGHT_ARROW) && bowl.position.x < (width - 50))
@@ -166,45 +190,46 @@ function draw() {
   bowl.position.x=mouseX; */
   //bowl.position.x=mouseX;
 
-  if(greenPacket!=null){
 
-  //Catch greenPacket in the bowl
-  if (greenPacket.overlap(bowl)) 
-    {
-      count++; 
-      removeSprite( greenPacket );
-      console.log('greenpacket');
-      if(userSelectedPacket != "green"){
-        life = 0;
+  for (var i = 0; i < greenPackets.length; i++) {
+    if(greenPackets[i]!=null){
+      if (greenPackets[i].overlap(bowl))
+      {
+        count++;
+        if(userSelectedPacket != "green"){
+          life = 0;
+        }
+        greenPackets = removeItemOnce(greenPackets,greenPackets[i]);
+        //removeSprite( greenPackets[i] );
       }
     }
   }
 
-  if(yellowPacket!=null){
-  //Catch yellowPacket in the bowl
-  if (yellowPacket.overlap(bowl)) 
-    {
-      count++; 
-      removeSprite( yellowPacket );
-      
-      console.log('yellowPacket');
-      if(userSelectedPacket != "yellow"){
-        life = 0;
+  for (var i = 0; i < yellowPackets.length; i++) {
+    if(yellowPackets[i]!=null){
+      if (yellowPackets[i].overlap(bowl))
+      {
+        count++;
+        if(userSelectedPacket != "yellow"){
+          life = 0;
+        }
+        yellowPackets = removeItemOnce(yellowPackets,yellowPackets[i]);
+        //removeSprite( yellowPackets[i] );
       }
     }
   }
 
-  if(bombPacket!=null){
-  //Catch bomb in the bowl
-  if (bombPacket.overlap(bowl)) 
-    {
-      count++; 
-      removeSprite( bombPacket );
-      life = 0;
-      console.log('bombPacket');
+  for (var i = 0; i < bombPackets.length; i++) {
+    if(bombPackets[i]!=null){
+      if (bombPackets[i].overlap(bowl))
+      {
+        life = 0;
 
+        bombPackets = removeItemOnce(bombPackets,bombPackets[i]);
+      }
     }
   }
+
   //Display Score and Life
   fill("white");
   textSize(15);
@@ -242,28 +267,24 @@ function mousePressed()
 }
 var lastpacket = 0;
 function createRandom(){
+
+  var newPacket;
   var n = (Math.floor(Math.random() * packetList.length));
 
+  newPacket = createSprite(random(10,width-10),30,20,20);
+  newPacket.scale = 0.35;
+
   if(n==0){
-    if(lastpacket == 0){createRandom(); return;}
-    bombPacket = createSprite(random(10, width-10),30,20,20);
-    bombPacket.scale = 0.35;
-    bombPacket.addImage(cherry);
-    lastpacket = 0;
+    newPacket.addImage(cherry);
+    bombPackets.push(newPacket);
   }
   if(n==1){
-    if(lastpacket == 1){createRandom(); return;}
-    greenPacket = createSprite(random(10, width-10),30,20,20);
-    greenPacket.scale = 0.35;
-    greenPacket.addImage(orange);
-    lastpacket = 1;
+    newPacket.addImage(orange);
+    greenPackets.push(newPacket);
   }
   if(n==2){
-    if(lastpacket == 2){createRandom(); return;}
-    yellowPacket = createSprite(random(10, width-10),30,20,20);
-    yellowPacket.scale = 0.35;
-    yellowPacket.addImage(banana);
-    lastpacket = 2;
+    newPacket.addImage(banana);
+    yellowPackets.push(newPacket);
   }
-
+  
 }
