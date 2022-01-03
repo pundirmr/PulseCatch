@@ -34,18 +34,18 @@
 </div>
 <div id="bg_start" onclick="onFullScreenAndStart()" class="bg_start"></div>
 
-<div id="register"  class="register">
+<div id="register"  class="register"  onclick="resetWidth()">
   <form id="regForm">
     <p class="small">
-    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" oninput="updatewidth()" >
-    <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" onclick="updatewidth()" >
+    <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     type = "number"
-    maxlength = "3">
+    maxlength = "3" onclick="updatewidth()">
     <!-- <input id="regEmail" type="email" class="form-style"   placeholder="E-MAIL"> -->
-    <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); updatewidth()"
+    <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     type = "number"
-    maxlength = "10">
-    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" oninput="updatewidth()"></p>
+    maxlength = "10" onclick="updatewidth()">
+    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" onclick="updatewidth()"></p>
   </form>
   <div class="registerNow" type="button" onclick="doRegister()" ></div>
 </div>
@@ -718,7 +718,11 @@ function pauseAudio() {
 // });
 
 function updatewidth(){
-    document.getElementById("regForm").style.margin = "0% 0% 0% 25%;";
+    document.getElementById("regForm").style.margin = '0% 0% 0% 25%';
+}
+
+function resetWidth(){
+  //document.getElementById("regForm").style.margin = '16% 0% 0% 25%';
 }
 
 </script>
