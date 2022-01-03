@@ -37,15 +37,15 @@
 <div id="register"  class="register"  onclick="resetWidth()">
   <form id="regForm">
     <p class="small">
-    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" onclick="updatewidth()" >
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" onclick="updatewidth()" onblur="xblur()">
     <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     type = "number"
-    maxlength = "3" onclick="updatewidth()">
+    maxlength = "3" onclick="updatewidth()" onblur="xblur()">
     <!-- <input id="regEmail" type="email" class="form-style"   placeholder="E-MAIL"> -->
     <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     type = "number"
-    maxlength = "10" onclick="updatewidth()">
-    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" onclick="updatewidth()"></p>
+    maxlength = "10" onclick="updatewidth()" onblur="xblur()">
+    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" onclick="updatewidth()" onblur="xblur()"></p>
   </form>
   <div class="registerNow" type="button" onclick="doRegister()" ></div>
 </div>
