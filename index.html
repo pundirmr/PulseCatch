@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
   <audio id="myAudio">
     <source src="a.mp3" type="audio/mpeg">
   </audio>
@@ -35,9 +36,38 @@
 <div id="bg_start" onclick="onFullScreenAndStart()" class="bg_start"></div>
 
 <div id="register"  class="register"  onclick="resetWidth()">
+
+<div id="privacyPolicy" class="modal show-modal">
+    <div class="modal-content">
+        <h1 style="font-size: 0.85em;">
+          <p style="text-align: center;"><span style="color: #000080;"><strong><u>PRIVACY POLICY</u></strong></span></p>
+          <p><span style="color: #000080;">Grab Pulse Natkaare game is for fun &amp; excitement in an understandable and trust-worthy environment. As part of this we are committed to protecting the privacy of our users. The Privacy Policy statement explains what information we collect from our members and users &amp; how we use the information. Personal Information of the User is information that identifies the User to Grab Pulse Natkaare game, as an individual, for this we collect the following:&nbsp;</span></p>
+          <ul>
+          <li><span style="color: #000080;">Name,</span></li>
+          <li><span style="color: #000080;">Age</span></li>
+          <li><span style="color: #000080;">Location</span></li>
+          </ul>
+          <p><span style="color: #000080;">&nbsp;If you do not provide the required information you may not be able to access the features we provide. We will collect personally identifiable information from you only if you voluntarily submit such information to us. You can always refuse to provide personally identifiable information, but by doing so, you may be prevented from engaging with the game. DS Confectionery Products Ltd (Pass Pass Pulse) is the sole owner of the information collected on this site &amp; the above information will be used for internal and promotional purpose, to avoid fraud detection or trend analysis. We will not sell, share, or rent this information to others or use it in ways different from what is disclosed in this statement.</span></p>
+          <p><span style="color: #000080;">&nbsp;We do not disclose your personal information to any third party without first receiving your permission, unless mandated by law or on demand of a statutory authority, in which event we shall inform you of the same before disclosing the information. We may need to disclose your information when required by law. Grab Pulse Natkaare game has the required security to protect the loss, misuse and alteration of information you provide us.</span></p>
+          <p><span style="color: #000080;">By playing this game, you have give your consent to the collection and use of this information by DS Confectionery Products Ltd (Pass Pass Pulse) &amp; its partners and affiliates in future, who shall use the information strictly in terms hereof, or in terms of any amendment hereto. From time to time, we may change our methods of collecting information and modify our privacy policy. We will post those changes on this page so that you are always aware of what information we collect, how we use it, and under what circumstances we disclose it.</span></p>
+          <p><span style="color: #000080;">We and each of our representatives, officers, directors, contractors and agents shall not be responsible for the authenticity of the information that you provide to us. You shall indemnify and hold us harmless and each of our officers, directors, contractors, agents or any third party relying on the information provided by you in the event:-(i) you are in breach of this policy including this provision and the immediately preceding provision; and (ii) any suit, action or claim is brought against us by any third party with respect to the information provided by you to us.</span></p>
+          <p><span style="color: #000080;">Notwithstanding anything to the contrary in this Policy, we may preserve or disclose your information if we believe that it is reasonably necessary to comply with a law, regulation or legal request; to protect the safety of any person; to address fraud, security or technical issues; or to protect Pulse Natkaare rights or property. However, nothing in this Privacy Policy is intended to limit any legal defenses or objections that you may have against a third party including a government&rsquo;s request, to disclose your information. Grab Pulse Natkaare game uses reasonable organizational, technical and administrative measures to protect information under our control.</span></p>
+          <p><span style="color: #000080;">However, no data transmission over the Internet or data storage system is guaranteed to be 100% secure. If users have reason to believe that their interaction with Grab Pulse Natkaare game features are no longer secure (for example, if they feel that the security of any account they might have with Grab Pulse Natkaare game has been compromised), it is their duty to immediately notify DS Confectionery Products Ltd (Pass Pass Pulse) of the problem by contacting the customer service personnel and DS Confectionery Products Ltd (Pass Pass Pulse) shall take necessary action as DS Confectionery Products Ltd (Pass Pass Pulse)&nbsp; may deem fit, under the circumstances. Pass Pass Pulse shall not be held responsible for any activity in your account which results from your failure to keep your personal or other Information secure.</span></p>
+          <p><span style="color: #000080;">Once you register with our services, you are made available with necessary tools and&nbsp;account settings&nbsp;to access or change the personal information you have provided to us, pursuant to your registration, which are associated with your account.</span></p>
+          <p><span style="color: #000080;">We may amend or revise this Privacy Policy from time to time. The most current version of the policy will govern our use of your information and your use of the services. By continuing to access or use the services after such changes becoming effective, you agree to be bound by the revised/amended Privacy Policy.</span></p>
+          <p><span style="color: #000080;">This Privacy Policy shall be governed by the laws of India. &nbsp;All disputes, claims, causes relating to and arising out of this Privacy Policy shall be subject to the exclusive jurisdiction of the courts at New Delhi.</span></p>
+          <p><span style="color: #000080;">For any query you can write to&nbsp;confectionery@dsgroup.com.</span></p>
+        </h1>
+</div>
+<span class="close-button" onclick="hideModel()" style="
+    margin-top: 6%;
+    margin-right: 7%;
+">×</span>
+</div>
   <form id="regForm">
     <p class="small">
-    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" onclick="updatewidth()" onblur="xblur()">
+    <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" onclick="updatewidth()" onblur="xblur()" 
+    oninput="javascript: if(!isNaN(this.value)) this.value = '';">
     <input id="regAge" class="form-style"   placeholder="AGE" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     type = "number"
     maxlength = "3" onclick="updatewidth()" onblur="xblur()">
@@ -45,17 +75,20 @@
     <input id="regNumber" class="form-style" placeholder="MOBILE NUMBER" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
     type = "number"
     maxlength = "10" onclick="updatewidth()" onblur="xblur()">
-    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" onclick="updatewidth()" onblur="xblur()"></p>
+    <input id="regCity" type="text" class="form-style"   placeholder="CITY" maxlength = "10" onclick="updatewidth()" onblur="xblur()"
+    oninput="javascript: if(!isNaN(this.value)) this.value = '';">
+  
+
+    <label style="margin: -6px 0px 0px 0px;"><input type="checkbox" style="width: 15px !important;height: 15px !important;" id="privacyCheck" onclick="privacyChecked()" checked>I accept the <a href="#" id="myBtn" style="color: white;">Terms and Conditions</a></label>
+  </p>
+    
+    
   </form>
   <div class="registerNow" type="button" onclick="doRegister()" ></div>
 </div>
 
-
 <div id="gameOver" class="gameOver">
-  <div class="gameOverDiv">
-    <div id="gameOverText" class="gameOverText">Game Over</div>
-  </div>
-
+  <div id="gameOverText" class="gameOverText">Game Over</div>
   <div class="share" type="button" onclick="onShare()" ></div>
   <div class="playAgain" type="button" onclick="playAgain()" ></div>
 
@@ -78,6 +111,16 @@ body, html {
 body{
   background-image: url("OnlyBg.png");
 }
+
+label {
+color: white;
+ display:block; 
+}
+
+label:hover {
+ cursor:pointer;
+}
+
 p.small {
   line-height: 2.5;
 }
@@ -205,14 +248,15 @@ form{
   margin: -20px 0px 0px 0px;
 }
 
-.gameOverText{
+.gameOverText {
     font-family: myFirstFont;
-    padding-left: 25%;
-    padding-top: 12%;
-    font-size: 40px;
+    padding-left: 12%;
+    padding-top: 38%;
+    font-size: 72px;
     text-shadow: -2px 2px black;
     outline: none;
-    color: #e7e7e7;
+    display: inline-block;
+    color: #d12025;
 }
 
 .gameOverDiv{
@@ -351,19 +395,19 @@ form{
     background-color: transparent;
 }
 
-.playAgain{
-  height: 30%;
+.playAgain {
+    height: 30%;
     width: 100%;
     position: relative;
-    top: -19%;
+    top: -13%;
     background-color: transparent;
-
 }
-.share{
-    height: 40%;
+
+.share {
+    height: 24%;
     width: 100%;
     position: relative;
-    top: -19%;
+    top: -13%;
     background-color: transparent;
 }
 
@@ -383,10 +427,93 @@ form{
 display: block;
 z-index: 999999;
 }
+
+
+.modal {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.1);
+        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+    }
+    
+.h1{
+  font-size: 1em;
+}
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 1rem 1.5rem;
+        width: 24rem;
+        border-radius: 0.5rem;
+        width: 70%;
+    height: 70%;
+    overflow-y: scroll;
+    }
+    
+    .close-button {
+        float: right;
+        width: 1.5rem;
+        line-height: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background-color: lightgray;
+    }
+    
+    .close-button:hover {
+        background-color: darkgray;
+    }
+    
+    .show-modal {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1.0);
+        display: none;
+        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+    }
 </style>
 
 <script>
 var elem = document.documentElement;
+var canRegister = true;
+function showModel(){
+  document.getElementById("privacyPolicy").style.display = "block";
+}
+
+function hideModel(){
+  document.getElementById("privacyPolicy").style.display = "none";
+}
+
+hideModel();
+
+var btn = document.getElementById("myBtn");
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  showModel();
+}
+
+function privacyChecked() {
+  // Get the checkbox
+  var checkBox = document.getElementById("privacyCheck");
+  console.log(checkBox.checked);
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    canRegister = true;
+  } else {
+    canRegister = false;
+  }
+}
+
 function openFullscreen() {
     if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -447,7 +574,6 @@ var checkOrientation = function(){
           document.getElementById("portrait").style.display = "block";
           document.getElementById("iframeDisplay").style.display = "none";
           document.getElementById("bg_start").style.display = "none";
-
           pauseAudio();
 
         }else{
@@ -633,6 +759,7 @@ document.getElementById("bg_start").style.display = "none";
 
 function doRegister(){
       console.log('register');
+      if(!canRegister) return;
       openFullscreen();
       console.log(document.getElementById("regName").value);
       console.log(document.getElementById("regAge").value);
