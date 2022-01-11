@@ -18,7 +18,7 @@
             color: #ed7222;
             text-shadow: -6px 4px black;
             text-align: center;
-            ">Rahul has scored : 50</span>
+            "></span>
             <span style="
             font-family: myFirstFont;
             font-size: 79px;
@@ -80,10 +80,34 @@ var params = location.href.split('?')[1].split('&');
   {
   data[params[x].split('=')[0]] = params[x].split('=')[1];
   }
-  console.log('received name is :' + data.name);
-  console.log('received score is :' + data.score);
 
-  document.getElementById("scoretext").innerHTML = data.name + " has scored : " + data.score;
+    var shouldTrue =false;
+  try {
+    window.atob(data.score);
+    shouldTrue = true;
+} catch(e) {
+    shouldTrue = false;
+    // something failed
 
+    // if you want to be specific and only catch the error which means
+    // the base 64 was invalid, then check for 'e.code === 5'.
+    // (because 'DOMException.INVALID_CHARACTER_ERR === 5')
+}
+
+if(shouldTrue){
+    var decodeUsername = window.atob( data.name);
+    var decodeScore = window.atob(data.score);
+
+  console.log('received name is :' + decodeUsername);
+  console.log('received score is :' + decodeScore);
+
+  document.getElementById("scoretext").innerHTML = decodeUsername + " has scored : " + decodeScore;
+
+}else{
+    document.getElementById("scoretext").innerHTML = "Cheating is not good.";
+}
+
+
+    
 </script>
 </html>

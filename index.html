@@ -537,7 +537,11 @@ function closeFullscreen() {
 //playerScore.html?name=Prithu&score=50
 function onShare(){
     const title = 'Pulse';
-    const url = 'https://pundirmr.github.io/PulseCatch/playerScore.html?name=' + username + '&score=' + userscore;
+
+    var encodeUsername = window.btoa(username);
+    var encodeScore = window.btoa(userscore);
+
+    const url = 'https://pundirmr.github.io/PulseCatch/playerScore.html?name=' + encodeUsername + '&score=' + encodeScore;
     const text = "Play Pulse game";
     if (navigator.share) {
       navigator
@@ -548,7 +552,7 @@ function onShare(){
         .catch(console.error);
     } else {
       window.location.replace(
-        `https://pundirmr.github.io/PulseCatch/playerScore.html` + username + `&score=` + userscore
+        `https://pundirmr.github.io/PulseCatch/playerScore.html?name=` + encodeUsername + `&score=` + encodeScore
       );
     }
 }
