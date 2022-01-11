@@ -251,7 +251,7 @@ form{
 .gameOverText {
     font-family: myFirstFont;
     padding-left: 12%;
-    padding-top: 38%;
+    padding-top: 31.5%;
     font-size: 72px;
     text-shadow: -2px 2px black;
     outline: none;
@@ -537,7 +537,7 @@ function closeFullscreen() {
 
 function onShare(){
     const title = 'Pulse';
-    const url = 'https://pundirmr.github.io/PulseCatch/';
+    const url = 'https://pundirmr.github.io/PulseCatch/playerScore.html';
     const text = "Play Pulse game";
     if (navigator.share) {
       navigator
@@ -548,7 +548,7 @@ function onShare(){
         .catch(console.error);
     } else {
       window.location.replace(
-        `https://pundirmr.github.io/PulseCatch/`
+        `https://pundirmr.github.io/PulseCatch/playerScore.html`
       );
     }
 }
