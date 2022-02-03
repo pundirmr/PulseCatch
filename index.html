@@ -27,10 +27,37 @@
     <div id="yellowPacket" class="selectionYellow"></div>
     <div id="greenPacket" class="selectionGreen"></div>
     <div class="container">
+        <div type="button" style="
+            height: 35%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            background-color: transparent;"
+            onclick="showGameRules()">
+        </div>
         <div class="button1" type="button" onclick="enableGreenPacket()"></div>
         <div class="button2" type="button" onclick="enableYellowPacket()"></div>
         <div class="button3" type="button" onclick="updateSound()"></div>
-        <div class="playButton" type="button"  onclick="displayIframe()"></div>
+        <div class="playButton" type="button"  onclick="displayIframe()"></div> 
+    </div>
+    <div id="gameRules" class="modal show-modal">
+      <div class="modal-content">
+          <h1 style="font-size: 0.85em;">
+            <p style="text-align: center;"><span style="color: #000080;"><strong><u>Game Rules</u></strong></span></p>
+            <p><span style="color: #000080;">&nbsp;1. Select from Pulse Natkare Peanuts (Green) or Pulse Natkare Chana Jor (Yellow).</span></p>
+            <p><span style="color: #000080;">&nbsp;2. Click on Play button to start playing game.</span></p>
+            <p><span style="color: #000080;">&nbsp;3. Gain score by catching as many Pulse Natkare you can in 30 seconds.</span></p>
+            <p><span style="color: #000080;">&nbsp;4. Catch the selected Pulse Natkare to increase score.</span></p>
+            <p><span style="color: #000080;">&nbsp;5. Catching different product will cause game over.</span></p>
+            <p><span style="color: #000080;">&nbsp;6. As time decreases speed of falling will increase, be ready for quick action.</span></p>
+            <p><span style="color: #000080;">&nbsp;7. Catching falling bombs will cause game over.</span></p>
+            <p><span style="color: #000080;">&nbsp;8. Share your score on Instagram, Facebook, WhatsApp and challenge your friends.</span></p>
+          </h1>
+    </div>
+    <span class="close-button" onclick="hideGameRules()" style="
+      margin-top: 6%;
+      margin-right: 7%;
+    ">×</span>
     </div>
 </div>
 <div id="bg_start" onclick="onFullScreenAndStart()" class="bg_start"></div>
@@ -64,6 +91,8 @@
     margin-right: 7%;
 ">×</span>
 </div>
+
+
   <form id="regForm">
     <p class="small">
     <input id="regName" type="text" class="form-style"   placeholder="NAME" maxlength = "7" onclick="updatewidth()" onblur="xblur()" 
@@ -354,18 +383,18 @@ form{
 }
 
 .button1{
-  height: 62%;
+  height: 33%;
     width: 49%;
     position: relative;
-    top: -14%;
+    top: 20%;
     background-color: transparent;
 }
 
 .button2{
-  height: 62%;
+  height: 33%;
     width: 49%;
     position: relative;
-    top: -76%;
+    top: -13%;
     left: 50%;
     background-color: transparent;
 }
@@ -374,7 +403,7 @@ form{
   height: 10%;
     width: 100%;
     position: relative;
-    top: -70%;
+    top: -12%;
     background-color: transparent;
 }
 
@@ -383,7 +412,7 @@ form{
   height: 18%;
     width: 100%;
     position: relative;
-    top: -66%;
+    top: -10%;
     background-color: transparent;
 }
 
@@ -492,6 +521,20 @@ function showModel(){
 
 function hideModel(){
   document.getElementById("privacyPolicy").style.display = "none";
+
+}
+
+function showGameRules(){
+  console.log('show rules');
+  
+  document.getElementById("gameRules").style.display = "block";
+  document.getElementById("gameRules").style.zIndex = "100";
+
+}
+
+function hideGameRules(){
+  console.log('hide rules');
+  document.getElementById("gameRules").style.display = "none";
 }
 
 hideModel();

@@ -22,7 +22,7 @@ var bowlImageg1,bowlImageg2,bowlImageg3;
 var bowlImagey1,bowlImagey2,bowlImagey3;
 
 function preload() {
-  backgroundImage = loadImage("bg_1.jpg");
+  backgroundImage = loadImage("GameBG.jpg");
 
   bowlImage = loadImage("robber.png");
 
