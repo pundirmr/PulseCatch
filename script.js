@@ -71,7 +71,7 @@ function setup() {
   
   if(isSafari){
     //ios
-    bowl = createSprite(screen.height - 70, screen.width - 200, 20,20);
+    bowl = createSprite(screen.height - 70, screen.width - 100, 20,20);
   }else{
     //android//Create bowl sprite
     bowl = createSprite(200, screen.height - 70, 20, 20);
@@ -263,11 +263,6 @@ function draw() {
   fill("white");
   textSize(15);
   text("Time:" + totalTime, 20,80);
-
-  fill("white");
-  textSize(15);
-  text("isSafari:" + isSafari, 90,80);
-
 
   //text("LIFE:"+life,500,40);
   //Game Over condition
