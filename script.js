@@ -21,9 +21,9 @@ var platform ="";
 
 var bowlImageg1,bowlImageg2,bowlImageg3;
 var bowlImagey1,bowlImagey2,bowlImagey3;
-
+var isSafari;
 function preload() {
-  var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+  isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
   navigator.userAgent &&
   navigator.userAgent.indexOf('CriOS') == -1 &&
   navigator.userAgent.indexOf('FxiOS') == -1;
@@ -66,7 +66,6 @@ let bgc;
 var initBowl = true;
 function setup() {
   bgc = 100;
-  
   if(platform=="ios"){
     //ios
     createCanvas(screen.height - 20,screen.width - 20 );
@@ -269,6 +268,15 @@ function draw() {
   fill("white");
   textSize(15);
   text("Time:" + totalTime, 20,80);
+
+  fill("white");
+  textSize(15);
+  text("isSafari:" + isSafari, 90,80);
+
+  fill("white");
+  textSize(15);
+  text("platform:" + platform, 200,80);
+
   //text("LIFE:"+life,500,40);
   //Game Over condition
   if(totalTime <=0)
