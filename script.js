@@ -47,9 +47,10 @@ function preload() {
   console.log('received data is :' + data.packet);
   userSelectedPacket = data.packet;
 }
-
+let bgc;
 var initBowl = true;
 function setup() {
+  bgc = 100;
   createCanvas(screen.width - 20, screen.height - 20 );
   //Create bowl sprite
   bowl = createSprite(200, screen.height - 70, 20, 20);
@@ -133,6 +134,7 @@ function removeItemOnce(arr, value) {
 
 function draw() {
   isDrawing = true;
+  background(bgc);
   //background(backgroundImage);
   //Generate random greenPacket sprite
 
