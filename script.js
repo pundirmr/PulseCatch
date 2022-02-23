@@ -16,6 +16,7 @@ var life=3;
 
 var isDrawing = false;
 var userSelectedPacket = "";
+var platform ="";
 //preload all the sprites
 
 var bowlImageg1,bowlImageg2,bowlImageg3;
@@ -44,22 +45,32 @@ function preload() {
   {
   data[params[x].split('=')[0]] = params[x].split('=')[1];
   }
-  console.log('received data is :' + data.packet);
+  //console.log('received data is :' + data.packet);
+  //console.log('received stage is :' + data.stage);
+
   userSelectedPacket = data.packet;
+  platform= data.stage;
 }
 let bgc;
 var initBowl = true;
 function setup() {
   bgc = 100;
-  //ios
-  createCanvas(screen.height - 20,screen.width - 20 );
+  
+  if(platform=="ios"){
+    //ios
+    createCanvas(screen.height - 20,screen.width - 20 );
+  }else{
   //android
-  //createCanvas(screen.width - 20, screen.height - 20);
-
-  //android//Create bowl sprite
-  //bowl = createSprite(200, screen.height - 70, 20, 20);
-  //ios
-  bowl = createSprite(screen.height - 70, 200, 20,20);
+    createCanvas(screen.width - 20, screen.height - 20);
+  }
+  
+  if(platform=="ios"){
+    //ios
+    bowl = createSprite(screen.height - 70, 200, 20,20);
+  }else{
+    //android//Create bowl sprite
+    bowl = createSprite(200, screen.height - 70, 20, 20);
+  }
 
   bowl.scale = 0.5;
   bowl.addImage(bowlImage);
@@ -78,7 +89,7 @@ var totalTime = 30;
 var fallingSpeed = 2.5;
 setInterval(function(){
   totalTime = totalTime - 1;
-  console.log('time left : ' + totalTime);
+  //console.log('time left : ' + totalTime);
 
   if(totalTime < 25)
   {
