@@ -59,7 +59,7 @@ function setup() {
   //android//Create bowl sprite
   //bowl = createSprite(200, screen.height - 70, 20, 20);
   //ios
-  bowl = createSprite(screen.height - 70, 20, 20,200);
+  bowl = createSprite(screen.height - 70, 200, 20,20);
 
   bowl.scale = 0.5;
   bowl.addImage(bowlImage);
