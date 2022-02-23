@@ -63,7 +63,7 @@ function setup() {
   bgc = 100;
   if(isSafari){
     //ios
-    createCanvas(screen.height,screen.width);
+    createCanvas(screen.height - 20,screen.width - 20 );
   }else{
   //android
     createCanvas(screen.width - 20, screen.height - 20);
@@ -71,7 +71,7 @@ function setup() {
   
   if(isSafari){
     //ios
-    bowl = createSprite(screen.height, screen.width, 20,20);
+    bowl = createSprite(screen.height - 70, screen.width - 80, 20,20);
   }else{
     //android//Create bowl sprite
     bowl = createSprite(200, screen.height - 70, 20, 20);
@@ -158,7 +158,6 @@ function removeItemOnce(arr, value) {
 function draw() {
   isDrawing = true;
   //background(bgc);
-  
   background(backgroundImage);
   //Generate random greenPacket sprite
 
