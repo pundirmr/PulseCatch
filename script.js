@@ -268,9 +268,6 @@ function draw() {
   textSize(15);
   text("isSafari:" + isSafari, 90,80);
 
-  fill("white");
-  textSize(15);
-  text("platform:" + platform, 200,80);
 
   //text("LIFE:"+life,500,40);
   //Game Over condition
