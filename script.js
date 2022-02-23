@@ -157,10 +157,9 @@ function removeItemOnce(arr, value) {
 
 function draw() {
   isDrawing = true;
-  background(bgc);
-  //background(backgroundImage);
+  //background(bgc);
+  background(backgroundImage);
   //Generate random greenPacket sprite
-
 
   for (var i = 0; i < bombPackets.length; i++) {
     if(bombPackets[i]!=null){
