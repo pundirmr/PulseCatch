@@ -55,16 +55,13 @@ function preload() {
   //console.log('received stage is :' + data.stage);
 
   userSelectedPacket = data.packet;
-  platform= data.stage;
-  if(isSafari){
-    platform = "ios";
-  }
+
 }
 let bgc;
 var initBowl = true;
 function setup() {
   bgc = 100;
-  if(platform=="ios"){
+  if(isSafari){
     //ios
     createCanvas(screen.height - 20,screen.width - 20 );
   }else{
@@ -72,7 +69,7 @@ function setup() {
     createCanvas(screen.width - 20, screen.height - 20);
   }
   
-  if(platform=="ios"){
+  if(isSafari){
     //ios
     bowl = createSprite(screen.height - 70, 200, 20,20);
   }else{
