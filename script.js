@@ -56,10 +56,8 @@ function preload() {
 
   userSelectedPacket = data.packet;
   platform= data.stage;
-  if(platform==""){
-    if(isSafari){
-      platform = "ios";
-    }
+  if(isSafari){
+    platform = "ios";
   }
 }
 let bgc;
