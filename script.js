@@ -71,7 +71,7 @@ function setup() {
   
   if(isSafari){
     //ios
-    bowl = createSprite(screen.height - 70, screen.width - 100, 20,20);
+    bowl = createSprite(screen.height - 70, screen.width - 80, 20,20);
   }else{
     //android//Create bowl sprite
     bowl = createSprite(200, screen.height - 70, 20, 20);
