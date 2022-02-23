@@ -133,7 +133,7 @@ function removeItemOnce(arr, value) {
 
 function draw() {
   isDrawing = true;
-  background(backgroundImage);
+  //background(backgroundImage);
   //Generate random greenPacket sprite
 
 
