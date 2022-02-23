@@ -23,6 +23,12 @@ var bowlImageg1,bowlImageg2,bowlImageg3;
 var bowlImagey1,bowlImagey2,bowlImagey3;
 
 function preload() {
+  var isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+  navigator.userAgent &&
+  navigator.userAgent.indexOf('CriOS') == -1 &&
+  navigator.userAgent.indexOf('FxiOS') == -1;
+
+
   backgroundImage = loadImage("GameBG.jpg");
 
   bowlImage = loadImage("robber.png");
@@ -50,6 +56,11 @@ function preload() {
 
   userSelectedPacket = data.packet;
   platform= data.stage;
+  if(platform==""){
+    if(isSafari){
+      platform = "ios";
+    }
+  }
 }
 let bgc;
 var initBowl = true;
