@@ -50,7 +50,7 @@ function preload() {
 
 var initBowl = true;
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
+  createCanvas(screen.width - 20, screen.height - 20 );
   //Create bowl sprite
   bowl = createSprite(200, screen.height - 70, 20, 20);
   bowl.scale = 0.5;
@@ -133,7 +133,9 @@ function removeItemOnce(arr, value) {
 
 function draw() {
   isDrawing = true;
-  background(backgroundImage);
+  // Displays the image at its actual size at point (0,0)
+  image(backgroundImage, 0, 0);
+  //background(backgroundImage);
   //Generate random greenPacket sprite
 
 
