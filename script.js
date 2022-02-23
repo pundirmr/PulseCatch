@@ -51,9 +51,16 @@ let bgc;
 var initBowl = true;
 function setup() {
   bgc = 100;
+  //ios
   createCanvas(screen.height - 20,screen.width - 20 );
-  //Create bowl sprite
-  bowl = createSprite(200, screen.height - 70, 20, 20);
+  //android
+  //createCanvas(screen.width - 20, screen.height - 20);
+
+  //android//Create bowl sprite
+  //bowl = createSprite(200, screen.height - 70, 20, 20);
+  //ios
+  bowl = createSprite(screen.height - 70, 20, 20,200);
+
   bowl.scale = 0.5;
   bowl.addImage(bowlImage);
 
