@@ -133,9 +133,7 @@ function removeItemOnce(arr, value) {
 
 function draw() {
   isDrawing = true;
-  // Displays the image at its actual size at point (0,0)
-  image(backgroundImage, 0, 0);
-  //background(backgroundImage);
+  background(backgroundImage);
   //Generate random greenPacket sprite
 
 
