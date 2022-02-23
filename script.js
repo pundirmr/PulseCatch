@@ -50,7 +50,7 @@ function preload() {
 
 var initBowl = true;
 function setup() {
-  createCanvas(screen.width - 20, screen.height - 20 );
+  createCanvas(window.innerWidth, window.innerHeight);
   //Create bowl sprite
   bowl = createSprite(200, screen.height - 70, 20, 20);
   bowl.scale = 0.5;
